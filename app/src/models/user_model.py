@@ -1,17 +1,18 @@
 from pydantic import UUID4, EmailStr
 from sqlmodel import Field, SQLModel, Relationship
 import uuid
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Optional, List
-from src.models.shop_model import Shop
 
 
 class User(SQLModel, table=True):
-    id: UUID4 | None = Field(default=UUID4, primary_key=True)
+    id: str = Field(default_factory=lambda: str(
+        uuid.uuid4()), primary_key=True)
     name: str = Field(index=True)
     email: EmailStr = Field(unique=True, index=True)
     pass_hash: str
-    created_at: datetime = Field(default_factory=datetime.now)
+    created_at: datetime = Field(
+        default_factory=lambda: datetime.now(timezone.utc))
     updated_at: Optional[datetime] = Field(default=None)
 
     shops: List["Shop"] = Relationship(back_populates="vendor")
@@ -24,13 +25,19 @@ class UserCreate(SQLModel):
 
 
 class UserResponse(SQLModel):
-    id: UUID4
+    id: str
     name: str
     email: EmailStr
     created_at: datetime
+    updated_at: Optional[datetime]
 
 
 class UserUpdate(SQLModel):
     name: Optional[str] = None
     email: Optional[EmailStr] = None
     password: Optional[str] = None
+
+
+class UserLogin(SQLModel):
+    email: str
+    password: str

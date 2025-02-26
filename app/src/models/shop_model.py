@@ -1,24 +1,24 @@
 from pydantic import UUID4, EmailStr
 from sqlmodel import Field, Session, SQLModel, create_engine, select, Relationship
 import uuid
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Optional, List
-
-from app.src.models.user_model import User
 
 
 class Shop(SQLModel, table=True):
-    id: UUID4 = Field(default_factory=uuid.uuid4, primary_key=True)
+    id: str = Field(default_factory=lambda: str(
+        uuid.uuid4()), primary_key=True)
     name: str = Field(index=True)
     business_type: Optional[str] = None
     lattitude: float = Field()
     longitude: float = Field()
-    created_at: datetime = Field(default_factory=datetime.now)
+    created_at: datetime = Field(
+        default_factory=lambda: datetime.now(timezone.utc))
     updated_at: Optional[datetime] = Field(default=None)
 
-    vendor_id: UUID4 = Field(foreign_key="user.id")
+    vendor_id: str = Field(foreign_key="user.id")
 
-    vendor: User = Relationship(back_populates="shops")
+    vendor: "User" = Relationship(back_populates="shops")
 
 # input validation
 
@@ -33,13 +33,12 @@ class ShopCreate(SQLModel):
 
 
 class ShopResponse(SQLModel):
-    id: UUID4
+    id: str
     name: str
     business_type: str
     latitude: float
     longitude: float
-    created_at: datetime
-    vendor_id: UUID4
+    vendor_name: str
 
 # update validation
 
@@ -55,7 +54,7 @@ class ShopUpdate(SQLModel):
 
 class NearbyShopQuery(SQLModel):
     """Schema for querying nearby shops."""
-    latitude: float
+    lattitude: float
     longitude: float
-    radius: float = 5.0  # Default radius in kilometers
-    limit: int = 10  # Default number of results to return
+    radius: float = 5.0  # in km
+    limit: int = 10

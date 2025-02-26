@@ -1,0 +1,22 @@
+in fastapi using SQLModel acts both for input and db validation
+also Yes, FastAPI automatically maps the request body to the Hero model. When you send a POST request to /heroes/ with JSON data, FastAPI will automatically parse it and convert it into a Hero object.
+
+For example, if you send this JSON in the request body:
+
+json
+Copy
+Edit
+{
+  "name": "Superman",
+  "secret_name": "Clark Kent",
+  "age": 35
+}
+FastAPI will:
+
+Validate the request body against the Hero model.
+Automatically map the fields (name, secret_name, age) to the Hero class.
+Pass the parsed Hero object to the create_hero function.
+
+
+
+passlib bcrypt automatically generates and manages salting thru CryptContext

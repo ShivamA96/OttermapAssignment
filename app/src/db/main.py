@@ -1,6 +1,6 @@
 from sqlmodel import SQLModel, create_engine, Session
-from app.src.models.user_model import User
-from app.src.models.shop_model import Shop
+from models.user_model import User
+from models.shop_model import Shop
 sqlite_file_name = "database.db"
 sqlite_url = f"sqlite:///{sqlite_file_name}"
 
@@ -10,6 +10,7 @@ engine = create_engine(sqlite_url, echo=True, connect_args=connect_args)
 
 def create_db_and_tables():
     SQLModel.metadata.create_all(engine)
+    print("Tables Created Successfully!!")
 
 
 def init_test_data():
@@ -17,7 +18,7 @@ def init_test_data():
         existing_user = session.exec(User).first()
 
         if existing_user is None:
-            from app.src.services.user_service import create_user
+            from services.user_service import create_user
             test_user = create_user(
                 name="Test Vendor",
                 email="test@example.com",
