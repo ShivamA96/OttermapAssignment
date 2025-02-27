@@ -7,6 +7,9 @@ docs :
 -> http://13.233.118.48/docs
 -> http://13.233.118.48/redoc
 
+
+Source code inside app/src folder
+
 ## Getting Started
 
 Follow these instructions to set up the project locally.
