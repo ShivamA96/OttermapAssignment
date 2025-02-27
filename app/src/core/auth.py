@@ -7,14 +7,14 @@ import jwt
 from jwt.exceptions import InvalidTokenError
 from models.jwtToken_model import Token, TokenData
 from models.user_model import User
+from src.config import JWT_SECRET_KEY, JWT_ALGORITHM, JWT_TOKEN_EXPIRY_MINUTES
 
 passlib_context = CryptContext(schemes=["bcrypt"])
 
 
-JWT_KEY = "8064eba13ae82a8e4ff46d015818561c34bd956ca0f079596e06ea93d2f94d6c"
-ALGO_JWT = "HS256"
-JWT_TOKEN_EXPIRY_TIME = 30  # in mins
-
+JWT_KEY = JWT_SECRET_KEY
+ALGO_JWT = JWT_ALGORITHM
+JWT_TOKEN_EXPIRY_TIME = JWT_TOKEN_EXPIRY_MINUTES
 
 jwt_scheme = OAuth2PasswordBearer(tokenUrl="token", scheme_name="")
 
