@@ -21,7 +21,12 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title="Vendor and Shop Management API",
-              version="0.1", root_path="api/v1", lifespan=lifespan)
+              version="0.1",  lifespan=lifespan, openapi_tags=[
+                  {"name": "auth", "description": "Authentication operations"},
+                  {"name": "users", "description": "User management operations"},
+                  {"name": "shops", "description": "Shop management operations"},
+                  {"name": "geo", "description": "Geographical search operations"},
+              ])
 
 app.add_middleware(CORSMiddleware, allow_origins=["*"],
                    allow_credentials=True, allow_methods=["*"], allow_headers=["*"])
