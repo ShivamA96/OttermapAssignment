@@ -53,34 +53,27 @@ ReDoc: http://localhost:8000/redoc
 API Endpoints
 The API provides the following main endpoints:
 
-Project Structure
-OttermapAssignment/
-├── app/
-│ ├── src/
-│ │ ├── api/
-│ │ │ └── routes/
-│ │ ├── core/
-│ │ ├── db/
-│ │ ├── models/
-│ │ ├── services/
-│ │ └── main.py
-│ └── tests/
-├── requirements.txt
-├── .env
-└── README.md
+### API's
 
-Authentication
+# Authentication
+
 POST /api/v1/auth/register - Register a new user
 POST /api/v1/auth/login - Authenticate a user
-Users
+
+# Users
+
 GET /api/v1/users/{user_id} - Get user details
 PUT /api/v1/users/ - Update current user
 DELETE /api/v1/users/ - Delete current user
-Shops
+
+# Shops
+
 POST /api/v1/shops - Create a new shop
 GET /api/v1/shops/{shop_id} - Get shop details
 GET /api/v1/shops - Get all shops for current vendor
 PUT /api/v1/shops/{shop_id} - Update a shop
 DELETE /api/v1/shops/{shop_id} - Delete a shop
-Geographic Search
+
+# Geographic Search
+
 POST /api/v1/search - Find shops near specified coordinates
