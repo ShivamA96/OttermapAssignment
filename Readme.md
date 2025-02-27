@@ -2,6 +2,11 @@
 
 This FastAPI application provides a complete backend for managing vendors and their shops, including geographical search functionality.
 
+To test the api deployed use base url : http://13.233.118.48/api/v1 (health test)
+docs :
+-> http://13.233.118.48/docs
+-> http://13.233.118.48/redoc
+
 ## Getting Started
 
 Follow these instructions to set up the project locally.
